@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fake News Detection — Pratima Sahu</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f7f9fb;
+      color: #2c3e50;
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #fff;
+      padding: 15px 70px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 40px;
+    }
+
+    .logo h2 {
+      font-weight: 600;
+      color: #059669;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #2c3e50;
+      font-weight: 500;
+      margin-left: 25px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #059669;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 80px 70px;
+      background-color: #f8fafc;
+    }
+
+    .hero-text {
+      max-width: 50%;
+    }
+
+    .hero-text h1 {
+      font-size: 36px;
+      color: #1e293b;
+      margin-bottom: 20px;
+    }
+
+    .hero-text p {
+      color: #64748b;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .hero-text button {
+      padding: 12px 28px;
+      background-color: #10b981;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .hero-text button:hover {
+      background-color: #059669;
+    }
+
+    .hero-img img {
+      width: 420px;
+    }
+
+    footer {
+      background-color: #fff;
+      padding: 20px;
+      text-align: center;
+      color: #64748b;
+      font-size: 14px;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+      margin-top: 50px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 60px 20px;
+      }
+      .hero-text {
+        max-width: 100%;
+      }
+      .hero-img img {
+        width: 300px;
+        margin-top: 30px;
+      }
+      nav {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">
+      <img src="/static/images/logo.png" alt="Logo">
+      <h2>Fake News Detection</h2>
+    </div>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/predict_page">Prediction</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Fake News Detection using Machine Learning</h1>
+      <p>Reliable source for verifying news authenticity.  
+        Validate the accuracy of news articles to uncover the truth and stop misinformation spread.</p>
+      <button onclick="window.location.href='/predict_page'">Get Started</button>
+    </div>
+
+    <div class="hero-img">
+      <img src="/static/images/fake_news_example.jpg" alt="Illustration">
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    Developed by <b>Pratima Sahu</b> | Madhav Institute of Technology and Science, EEIoT Department
+  </footer>
+
+</body>
+</html>
