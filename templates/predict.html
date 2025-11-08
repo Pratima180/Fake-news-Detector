@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fake News Prediction</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>Fake News Detection 🔍</h1>
+
+  <form action="{{ url_for('predict') }}" method="POST">
+    <textarea name="news" placeholder="Enter news article here..." rows="8" cols="60"></textarea><br><br>
+    <button type="submit">Predict</button>
+  </form>
+
+  {% if prediction_text %}
+  <h2>{{ prediction_text }}</h2>
+  {% endif %}
+</body>
+</html>
