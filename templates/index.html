@@ -106,6 +106,58 @@
       width: 420px;
     }
 
+    /* About Section */
+    .about {
+      max-width: 900px;
+      margin: 80px auto;
+      padding: 0 40px;
+      text-align: left;
+    }
+
+    .about h2 {
+      font-size: 28px;
+      color: #059669;
+      margin-bottom: 20px;
+    }
+
+    .about p, .about li {
+      color: #475569;
+      line-height: 1.7;
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+
+    .about ul {
+      list-style-type: disc;
+      margin-left: 20px;
+      margin-top: 10px;
+    }
+
+    /* Contact Section */
+    .contact {
+      max-width: 900px;
+      margin: 80px auto;
+      padding: 0 40px;
+      text-align: left;
+    }
+
+    .contact h2 {
+      font-size: 28px;
+      color: #059669;
+      margin-bottom: 20px;
+    }
+
+    .contact p a {
+      color: #10b981;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .contact p a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
     footer {
       background-color: #fff;
       padding: 20px;
@@ -135,6 +187,9 @@
         gap: 10px;
         padding: 15px 25px;
       }
+      .about, .contact {
+        padding: 0 20px;
+      }
     }
   </style>
 </head>
@@ -150,8 +205,8 @@
     <div class="nav-links">
       <a href="/">Home</a>
       <a href="/predict_page">Prediction</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
     </div>
   </nav>
 
@@ -167,6 +222,31 @@
     <div class="hero-img">
       <img src="/static/images/fake_news_example.jpg" alt="Illustration">
     </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <h2>About Me</h2>
+    <p>I’m an EEIOT undergraduate passionate about Machine Learning, NLP, and building
+    secure, human-centered web applications. I work end-to-end — from data preparation and
+    model training to deploying production-ready services on the cloud.</p>
+
+    <p>My current focus is <strong>Fake News Detection</strong>, where I combine robust text
+    preprocessing, explainable ML, and an accessible UI. I care deeply about model
+    quality (accuracy, bias checks) and reliability (clear error handling, reproducible pipelines).</p>
+
+    <ul>
+      <li>Tech: Python, Flask, Scikit-learn, NLTK, Pandas, Git/GitHub, HTML/CSS/JS</li>
+      <li>Interests: NLP, model interpretability, clean UI/UX, cloud deployment</li>
+    </ul>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <h2>Contact</h2>
+    <p>Have a question or want to collaborate?  
+      <a href="mailto:santoshsahu01012020@gmail.com">santoshsahu01012020@gmail.com</a>
+    </p>
   </section>
 
   <!-- Footer -->
