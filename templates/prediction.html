@@ -2,59 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Fake News Detector - Result</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fake News Detector — Result</title>
+
   <style>
-    .confidence-container {
-      margin-top: 20px;
-      background-color: rgba(255,255,255,0.15);
-      border-radius: 20px;
-      height: 25px;
-      width: 80%;
-      margin-left: auto;
-      margin-right: auto;
-      overflow: hidden;
+    body {
+      background: #f5f8ff;
+      font-family: "Segoe UI", Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    .confidence-bar {
-      height: 100%;
-      width: 0;
-      border-radius: 20px;
+
+    .result-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      padding: 40px 50px;
       text-align: center;
-      color: white;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .result-card h2 {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+    }
+
+    .confidence {
+      font-size: 1.2em;
+      color: #333;
+      margin-top: 15px;
+    }
+
+    .confidence-value {
+      background-color: #ffd700;
+      color: #000;
+      padding: 5px 12px;
+      border-radius: 8px;
       font-weight: bold;
-      line-height: 25px;
-      transition: width 1.5s ease-in-out;
+      display: inline-block;
+      margin-top: 8px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      background: #007bff;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #0056b3;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>🧾 Prediction Result</h2>
-    <div class="result-box">
-      <p id="prediction">{{ prediction_text|safe }}</p>
-      <div id="confidenceContainer" class="confidence-container">
-        <div id="confidenceBar" class="confidence-bar"></div>
-      </div>
-    </div>
-    <a href="/predict_page" class="btn">Try Another News</a>
+
+  <div class="result-card">
+    <h2>{{ prediction_text | safe }}</h2>
+    <a href="/predict_page" class="btn">🔁 Try Another News</a>
   </div>
 
-  <script>
-    // Extract confidence percentage from the rendered text
-    const text = document.getElementById('prediction').innerText;
-    const match = text.match(/Confidence:\s*([0-9.]+)/);
-    if (match) {
-      const value = parseFloat(match[1]);
-      const bar = document.getElementById('confidenceBar');
-      bar.style.width = value + "%";
-      bar.innerText = value + "%";
-      // Color logic
-      if (value >= 70) bar.style.background = "#4CAF50"; // green
-      else if (value >= 40) bar.style.background = "#FFA500"; // orange
-      else bar.style.background = "#f44336"; // red
-    } else {
-      document.getElementById('confidenceContainer').style.display = "none";
-    }
-  </script>
 </body>
 </html>
+
