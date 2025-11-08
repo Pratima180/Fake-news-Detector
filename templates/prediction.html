@@ -2,38 +2,59 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fake News Result</title>
+  <title>Fake News Detector - Result</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    .confidence-container {
+      margin-top: 20px;
+      background-color: rgba(255,255,255,0.15);
+      border-radius: 20px;
+      height: 25px;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      overflow: hidden;
+    }
+    .confidence-bar {
+      height: 100%;
+      width: 0;
+      border-radius: 20px;
+      text-align: center;
+      color: white;
+      font-weight: bold;
+      line-height: 25px;
+      transition: width 1.5s ease-in-out;
+    }
+  </style>
 </head>
 <body>
-
-  <nav>
-    <div class="logo">
-      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
-      <h2>Fake News Detection</h2>
-    </div>
-    <div class="nav-links">
-      <a href="/">Home</a>
-      <a href="/predict_page">Prediction</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </nav>
-
-  <section class="prediction-section">
-    <h1>Prediction Result 🧠</h1>
+  <div class="container">
+    <h2>🧾 Prediction Result</h2>
     <div class="result-box">
-      {{ prediction_text }}
+      <p id="prediction">{{ prediction_text|safe }}</p>
+      <div id="confidenceContainer" class="confidence-container">
+        <div id="confidenceBar" class="confidence-bar"></div>
+      </div>
     </div>
-    <br><br>
-    <button class="analyze-btn" onclick="window.location.href='/predict_page'">Try Another</button>
-  </section>
+    <a href="/predict_page" class="btn">Try Another News</a>
+  </div>
 
-  <footer>
-    Developed by <b>Pratima Sahu</b> | Madhav Institute of Technology and Science, EEIoT Department
-  </footer>
-
+  <script>
+    // Extract confidence percentage from the rendered text
+    const text = document.getElementById('prediction').innerText;
+    const match = text.match(/Confidence:\s*([0-9.]+)/);
+    if (match) {
+      const value = parseFloat(match[1]);
+      const bar = document.getElementById('confidenceBar');
+      bar.style.width = value + "%";
+      bar.innerText = value + "%";
+      // Color logic
+      if (value >= 70) bar.style.background = "#4CAF50"; // green
+      else if (value >= 40) bar.style.background = "#FFA500"; // orange
+      else bar.style.background = "#f44336"; // red
+    } else {
+      document.getElementById('confidenceContainer').style.display = "none";
+    }
+  </script>
 </body>
 </html>
-
