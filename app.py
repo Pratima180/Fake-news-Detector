@@ -17,11 +17,16 @@ nltk_data_dir = "./nltk_data"
 os.makedirs(nltk_data_dir, exist_ok=True)
 nltk.data.path.append(nltk_data_dir)
 
-for pkg in ["wordnet", "omw-1.4", "stopwords", "punkt"]:
+# Download all required NLTK resources safely
+required_pkgs = ["wordnet", "omw-1.4", "stopwords", "punkt", "punkt_tab"]
+for pkg in required_pkgs:
     try:
-        nltk.data.find(f"corpora/{pkg}")
+        nltk.data.find(f"corpora/{pkg}")  # corpus-based check
     except LookupError:
-        nltk.download(pkg, download_dir=nltk_data_dir)
+        try:
+            nltk.data.find(f"tokenizers/{pkg}")  # tokenizer-based check
+        except LookupError:
+            nltk.download(pkg, download_dir=nltk_data_dir)
 
 # -----------------------------------------------
 # Flask initialization
@@ -113,3 +118,4 @@ def predict():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
+
