@@ -2,19 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Fake News Prediction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fake News Detection — Prediction</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <h1>Fake News Detection 🔍</h1>
 
-  <form action="{{ url_for('predict') }}" method="POST">
-    <textarea name="news" placeholder="Enter news article here..." rows="8" cols="60"></textarea><br><br>
-    <button type="submit">Predict</button>
-  </form>
+  <nav>
+    <div class="logo">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+      <h2>Fake News Detection</h2>
+    </div>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/predict_page">Prediction</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
 
-  {% if prediction_text %}
-  <h2>{{ prediction_text }}</h2>
-  {% endif %}
+  <section class="prediction-section">
+    <h1>Fake News Detection 🔍</h1>
+    <p>Enter your news article or headline below and analyze its authenticity using our ML model.</p>
+
+    <form action="{{ url_for('predict') }}" method="POST">
+      <textarea name="news" placeholder="Enter news article here..."></textarea><br>
+      <button type="submit" class="analyze-btn">Analyze</button>
+    </form>
+
+    {% if prediction_text %}
+    <div class="result-box">
+      {{ prediction_text }}
+    </div>
+    {% endif %}
+  </section>
+
+  <footer>
+    Developed by <b>Pratima Sahu</b> | Madhav Institute of Technology and Science, EEIoT Department
+  </footer>
+
 </body>
 </html>
+
