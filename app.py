@@ -20,6 +20,7 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
 # Ensure required NLTK data
+# Ensure required NLTK data
 try:
     nltk.data.find('corpora/stopwords')
 except LookupError:
@@ -29,6 +30,11 @@ try:
     nltk.data.find('tokenizers/punkt')
 except LookupError:
     nltk.download('punkt')
+
+try:
+    nltk.data.find('tokenizers/punkt_tab')
+except LookupError:
+    nltk.download('punkt_tab')
 
 # Initialize Flask app
 app = Flask(__name__, template_folder='./templates', static_folder='./static')
