@@ -3,11 +3,13 @@
    Author: Pratima Sahu (MITS EEIoT)
    ============================ */
 
+/* General */
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
   background: #f1f5f9;
   color: #1e293b;
+  line-height: 1.6;
 }
 
 /* Navbar */
@@ -38,6 +40,7 @@ nav {
   color: #059669;
   font-size: 20px;
   margin: 0;
+  font-weight: 600;
 }
 
 .nav-links a {
@@ -69,6 +72,7 @@ nav {
   font-size: 36px;
   color: #0f172a;
   margin-bottom: 20px;
+  line-height: 1.3;
 }
 
 .hero-text p {
@@ -87,26 +91,77 @@ nav {
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 .hero-text button:hover {
   background-color: #047857;
+  transform: translateY(-2px);
 }
 
 .hero-img img {
   width: 420px;
+  border-radius: 10px;
+}
+
+/* About Section */
+.about {
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 0 40px;
+  text-align: left;
+}
+
+.about h2 {
+  font-size: 28px;
+  color: #059669;
+  margin-bottom: 20px;
+}
+
+.about p, .about li {
+  color: #475569;
+  font-size: 15px;
+}
+
+.about ul {
+  list-style-type: disc;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+/* Contact Section */
+.contact {
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 0 40px;
+  text-align: left;
+}
+
+.contact h2 {
+  font-size: 28px;
+  color: #059669;
+  margin-bottom: 20px;
+}
+
+.contact p a {
+  color: #059669;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.contact p a:hover {
+  text-decoration: underline;
 }
 
 /* Prediction Page */
 .prediction-section {
   text-align: center;
-  padding: 50px 20px;
+  padding: 60px 20px;
 }
 
 .prediction-section h1 {
   color: #059669;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 textarea {
@@ -119,32 +174,39 @@ textarea {
   padding: 15px;
   font-size: 15px;
   background: #ffffff;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
+  transition: all 0.2s ease;
+}
+
+textarea:focus {
+  box-shadow: 0 0 12px rgba(5, 150, 105, 0.4);
 }
 
 button.analyze-btn {
   background-color: #059669;
   color: #fff;
-  padding: 10px 25px;
+  padding: 12px 30px;
   border: none;
   border-radius: 8px;
   font-weight: 600;
+  font-size: 15px;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.3s ease;
 }
 
 button.analyze-btn:hover {
   background-color: #047857;
+  transform: scale(1.03);
 }
 
 .result-box {
-  margin-top: 20px;
+  margin-top: 25px;
   display: inline-block;
   background: #fff;
-  padding: 15px 25px;
+  padding: 18px 30px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: #111;
   font-size: 18px;
   min-width: 250px;
@@ -158,7 +220,7 @@ footer {
   color: #475569;
   font-size: 14px;
   margin-top: 40px;
-  box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
 }
 
 /* Responsive */
@@ -168,16 +230,28 @@ footer {
     text-align: center;
     padding: 60px 20px;
   }
+
   .hero-text {
     max-width: 100%;
   }
+
   .hero-img img {
     width: 300px;
     margin-top: 30px;
   }
+
   nav {
     flex-direction: column;
     gap: 10px;
     padding: 15px 25px;
   }
+
+  .about, .contact {
+    padding: 0 20px;
+  }
+
+  textarea {
+    width: 90%;
+  }
 }
+
