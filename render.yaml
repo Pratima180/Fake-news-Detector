@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: fake-news-detector
+    env: python
+    buildCommand: |
+      pip install -r requirements.txt
+      python -m nltk.downloader stopwords
+    startCommand: gunicorn app:app
