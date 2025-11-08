@@ -12,6 +12,9 @@ import numpy as np
 import os
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+import nltk
+for pkg in ['stopwords', 'wordnet', 'omw-1.4', 'punkt']:
+    nltk.download(pkg)
 
 # -----------------------------------------------
 # NLTK setup
