@@ -5,41 +5,32 @@
 # ===============================================
 
 from flask import Flask, render_template, request
-import pandas as pd
-from flask import Flask, render_template, request
-import pandas as pd
-import sklearn
+import os, re, pickle, nltk
 import numpy as np
-import seaborn as sb
-import re
-import os
-import nltk
-import pickle
-from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-# Ensure required NLTK data
-# Ensure required NLTK data
-try:
-    nltk.data.find('corpora/stopwords')
-except LookupError:
-    nltk.download('stopwords')
+# -----------------------------------------------
+# NLTK setup — fixes "Resource wordnet not found"
+# -----------------------------------------------
+nltk_data_dir = "./nltk_data"
+os.makedirs(nltk_data_dir, exist_ok=True)
+nltk.data.path.append(nltk_data_dir)
 
-try:
-    nltk.data.find('tokenizers/punkt')
-except LookupError:
-    nltk.download('punkt')
+for pkg in ["wordnet", "omw-1.4", "stopwords", "punkt"]:
+    try:
+        nltk.data.find(f"corpora/{pkg}")
+    except LookupError:
+        nltk.download(pkg, download_dir=nltk_data_dir)
 
-try:
-    nltk.data.find('tokenizers/punkt_tab')
-except LookupError:
-    nltk.download('punkt_tab')
-
-# Initialize Flask app
+# -----------------------------------------------
+# Flask initialization
+# -----------------------------------------------
 app = Flask(__name__, template_folder='./templates', static_folder='./static')
 
+# -----------------------------------------------
 # Load model and vectorizer
+# -----------------------------------------------
 model_path = "model.pkl"
 vectorizer_path = "vectorizer.pkl"
 
@@ -48,35 +39,44 @@ if not os.path.exists(model_path):
 if not os.path.exists(vectorizer_path):
     raise FileNotFoundError(f"Vectorizer file not found: {vectorizer_path}")
 
-loaded_model = pickle.load(open(model_path, 'rb'))
+model = pickle.load(open(model_path, 'rb'))
 vectorizer = pickle.load(open(vectorizer_path, 'rb'))
 
-# Initialize tools
+# -----------------------------------------------
+# Preprocessing tools
+# -----------------------------------------------
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
 
-# ===============================
-# Preprocessing Function
-# ===============================
 def preprocess_text(news):
-    review = re.sub(r'[^a-zA-Z\s]', '', news)  # Remove special chars
+    """Clean and lemmatize input text"""
+    review = re.sub(r'[^a-zA-Z\s]', '', news)
     review = review.lower()
     tokens = nltk.word_tokenize(review)
     filtered = [lemmatizer.lemmatize(w) for w in tokens if w not in stop_words]
     return ' '.join(filtered)
 
-# ===============================
-# Prediction Function
-# ===============================
-def fake_news_det(news):
-    cleaned_text = preprocess_text(news)
-    vectorized = vectorizer.transform([cleaned_text])
-    prediction = loaded_model.predict(vectorized)
-    return prediction
+# -----------------------------------------------
+# Prediction logic
+# -----------------------------------------------
+def predict_fake_news(news):
+    cleaned = preprocess_text(news)
+    vectorized = vectorizer.transform([cleaned])
+    pred = model.predict(vectorized)[0]
 
-# ===============================
-# Flask Routes
-# ===============================
+    # Confidence using model probabilities (if available)
+    try:
+        probs = model.predict_proba(vectorized)[0]
+        confidence = round(max(probs) * 100, 2)
+    except:
+        confidence = None
+
+    label = "📰 Real News" if pred == 0 else "🚨 Fake News"
+    return label, confidence
+
+# -----------------------------------------------
+# Flask routes
+# -----------------------------------------------
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -90,23 +90,26 @@ def predict():
     try:
         news = request.form.get('news')
         if not news or not news.strip():
-            return render_template('prediction.html', prediction_text="⚠️ Please enter some text.")
+            return render_template('prediction.html',
+                                   prediction_text="⚠️ Please enter some news text.")
 
-        pred = fake_news_det(news)
-        if pred[0] == 1:
-            result = "Prediction of the News: 📰 Looking Fake News"
+        label, confidence = predict_fake_news(news)
+
+        if confidence:
+            result = f"{label} <br><br>🔍 Confidence: <b>{confidence}%</b>"
         else:
-            result = "Prediction of the News: 📰 Looking Real News"
+            result = f"{label} <br><br>(Confidence unavailable)"
 
         return render_template('prediction.html', prediction_text=result)
 
     except Exception as e:
-        print(f"Error in /predict: {e}")
-        return render_template('prediction.html', prediction_text="❌ Internal Error: " + str(e))
+        print("Error in /predict:", e)
+        return render_template('prediction.html',
+                               prediction_text="❌ Internal Error: " + str(e))
 
-# ===============================
-# Main entry point
-# ===============================
+# -----------------------------------------------
+# Run the app
+# -----------------------------------------------
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))  # Render dynamic port
+    port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
