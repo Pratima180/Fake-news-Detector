@@ -1,0 +1,183 @@
+/* ============================
+   Fake News Detection WebApp
+   Author: Pratima Sahu (MITS EEIoT)
+   ============================ */
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+/* Navbar */
+nav {
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 15px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+}
+
+.logo h2 {
+  color: #059669;
+  font-size: 20px;
+  margin: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #1e293b;
+  font-weight: 500;
+  margin-left: 25px;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: #059669;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 80px 70px;
+  background-color: #f8fafc;
+}
+
+.hero-text {
+  max-width: 50%;
+}
+
+.hero-text h1 {
+  font-size: 36px;
+  color: #0f172a;
+  margin-bottom: 20px;
+}
+
+.hero-text p {
+  color: #475569;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.hero-text button {
+  padding: 12px 28px;
+  background-color: #059669;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.hero-text button:hover {
+  background-color: #047857;
+}
+
+.hero-img img {
+  width: 420px;
+}
+
+/* Prediction Page */
+.prediction-section {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.prediction-section h1 {
+  color: #059669;
+  margin-bottom: 20px;
+}
+
+textarea {
+  width: 100%;
+  max-width: 600px;
+  height: 150px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  padding: 15px;
+  font-size: 15px;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+button.analyze-btn {
+  background-color: #059669;
+  color: #fff;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button.analyze-btn:hover {
+  background-color: #047857;
+}
+
+.result-box {
+  margin-top: 20px;
+  display: inline-block;
+  background: #fff;
+  padding: 15px 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  color: #111;
+  font-size: 18px;
+  min-width: 250px;
+}
+
+/* Footer */
+footer {
+  background: #ffffff;
+  padding: 20px;
+  text-align: center;
+  color: #475569;
+  font-size: 14px;
+  margin-top: 40px;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .hero-text {
+    max-width: 100%;
+  }
+  .hero-img img {
+    width: 300px;
+    margin-top: 30px;
+  }
+  nav {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px 25px;
+  }
+}
