@@ -110,8 +110,21 @@ def home():
 def predict_page():
     return render_template('predict.html')
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['GET', 'POST'])
 def predict():
+    if request.method == 'GET':
+        # Show the prediction page instead of error
+        return render_template('predict.html')
+    else:
+        news = request.form.get('news')
+        if not news or not news.strip():
+            return render_template('prediction.html',
+                                   prediction_text="⚠️ Please enter some text.")
+
+        label, confidence = predict_fake_news(news)
+        result = f"{label}<br><br>🔍 Confidence: <b>{confidence}%</b>"
+        return render_template('prediction.html', prediction_text=result)
+
     try:
         news = request.form.get('news')
         if not news or not news.strip():
@@ -134,4 +147,3 @@ def predict():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
-
